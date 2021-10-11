@@ -1,28 +1,15 @@
-pipeline { 
-  
-   agent any
-  tools { nodejs "Node"}
-   stages {
-   
-     stage('Install Dependencies') { 
-        steps { 
-           sh 'npm install' 
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                sh './gradlew assemble'
+            }
         }
-     }
-     
-     stage('Test') { 
-        steps { 
-           sh 'echo "testing application..."'
+        stage('Test') {
+            steps {
+                sh './gradlew test'
+            }
         }
-      }
-
-         stage("Deploy application") { 
-         steps { 
-           sh 'echo "deploying application..."'
-         }
-
-     }
-  
-   	}
-
-   }
+ }
