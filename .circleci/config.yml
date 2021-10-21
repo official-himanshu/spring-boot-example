@@ -2,21 +2,23 @@
 version: 2.1
 
 jobs:
-  say-hello:
-    
+  
+  build-and-test:
     docker:
-      - image: cimg/maven:3.8.3
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+      - image: cimg/openjdk:11.0
+    
     steps:
+    
       - checkout
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+          name: Build
+          command: mvn -B -DskipTests clean package
+      # Then run your tests!
+      - run:
+          name: Test
+          command: mvn test
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
+  sample:
     jobs:
-      - say-hello
+      - build-and-test
