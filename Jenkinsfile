@@ -1,6 +1,6 @@
 pipeline{
     agent{
-        label 'Slave1'
+        label 'Built-In Node'
     }
     tools { 
         maven 'maven3'
